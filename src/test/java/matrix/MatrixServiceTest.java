@@ -48,7 +48,12 @@ public class MatrixServiceTest {
 		MatrixService m1 = new Matrix(4, 4, new Float[][]{{1f,2f,3f,4f}, {5f,6f,7f,8f}, {9f,10f,11f, 12f}, {13f, 14f, 15f, 16f}});
 		Float[][] f_expect = new Float[][]{{13f, 9f, 5f, 1f}, {14f, 10f, 6f, 2f}, {15f, 11f, 7f, 3f}, {16f, 12f, 8f, 4f}};
 		m1.rotate();
-		System.out.println(m1.getMatrix());
+		Float [][] pr = m1.getMatrix();
+		for (int x = 0; x < m1.getDimX(); x++) {
+			for (int y = 0; y < m1.getDimY(); y++) 
+				System.out.print(pr[x][y] + " , ");		
+		System.out.println(" ");
+		}
 		Assert.assertTrue(Arrays.deepEquals(m1.getMatrix(), f_expect));
 	}
 	

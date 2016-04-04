@@ -74,13 +74,26 @@ public class Matrix implements MatrixService {
 		if (this.getDimY() != this.getDimX())
 			throw new InvalidDimensionException("Invalid dimension: Expecting a square matrix only");
 		
+		Float temp2 = 0f;
 		for (int i = 0; i < this.getDimX()/2; i++) {	// Start from outer and go inner
-			for (int j = 0; j < this.getDimX() - 1; j++) {
+			for (int j = i; j < this.getDimX() - i - 1; j++) {
 				Float temp1 = this.data[i][j];
-				swap(temp1, this.data[j][this.getDimX() - i - 1]); //2
-				swap(temp1, this.data[this.getDimX() - i - 1][this.getDimX() - j - 1]); // 3
-				swap(temp1, this.data[this.getDimX() - j - 1][i]); // 4
-				swap(temp1, this.data[i][j]);
+				
+				temp2 = this.data[j][this.getDimX() - i - 1];
+				this.data[j][this.getDimX() - i - 1] = temp1;
+				temp1 = temp2;
+				
+				temp2 = this.data[this.getDimX() - i - 1][this.getDimX() - j - 1];
+				this.data[this.getDimX() - i - 1][this.getDimX() - j - 1] = temp1;
+				temp1 = temp2;
+
+				temp2 = this.data[this.getDimX() - j - 1][i];
+				this.data[this.getDimX() - j - 1][i] = temp1;
+				temp1 = temp2;
+				
+				temp2 = this.data[i][j];
+				this.data[i][j] = temp1;
+				temp1 = temp2;
 			}
 		}		
 	}
@@ -107,7 +120,7 @@ public class Matrix implements MatrixService {
 	}
 	
 	private void swap(Float a, Float b) {
-		float temp = a;
+		Float temp = a;
 		a = b;
 		b = temp;
 	}	
